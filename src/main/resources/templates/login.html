@@ -1,0 +1,149 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org" lang="es">
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>Iniciar Sesión</title>
+
+    <!-- Fonts y FontAwesome -->
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Open+Sans:100,300,400,700">
+    <link rel="stylesheet" href="https://netdna.bootstrapcdn.com/font-awesome/4.0.3/css/font-awesome.css">
+
+    <style>
+        body, html {
+            height: 100%;
+        }
+        body {
+            font-family: 'Open Sans', sans-serif;
+            font-weight: 100;
+            display: flex;
+            overflow: hidden;
+        }
+        .login-form {
+            margin: auto;
+            max-width: 400px;
+            padding: 2rem;
+        }
+        .login-text {
+            color: white;
+            font-size: 1.5rem;
+            text-align: center;
+            margin-bottom: 2rem;
+        }
+        .fa-stack-1x {
+            color: black;
+        }
+        .login-username, .login-password {
+            background: transparent;
+            border: none;
+            border-bottom: 1px solid rgba(255,255,255,0.5);
+            color: white;
+            display: block;
+            width: 100%;
+            margin-bottom: 1.5rem;
+            padding: 0.5rem;
+        }
+        .login-username::placeholder,
+        .login-password::placeholder {
+            color: rgba(255,255,255,0.7);
+        }
+        .login-username:focus,
+        .login-password:focus {
+            background: white;
+            color: black;
+            outline: none;
+        }
+        .login-submit {
+            border: 1px solid white;
+            background: transparent;
+            color: white;
+            padding: 0.5rem 2rem;
+            display: block;
+            width: 100%;
+            cursor: pointer;
+        }
+        .login-submit:hover {
+            background: white;
+            color: black;
+        }
+        .login-forgot-pass {
+            display: block;
+            text-align: center;
+            color: white;
+            opacity: 0.6;
+            font-size: 0.85rem;
+            margin-top: 1rem;
+        }
+        .login-forgot-pass:hover {
+            opacity: 1;
+        }
+        .error-msg, .logout-msg {
+            text-align: center;
+            margin-top: 1rem;
+            font-weight: 500;
+        }
+        .error-msg {
+            color: #ff6b6b;
+        }
+        .logout-msg {
+            color: #28a745;
+        }
+
+        .underlay-photo, .underlay-black {
+            position: fixed;
+            top: 0;
+            left: 0;
+            min-width: 100%;
+            min-height: 100%;
+            z-index: -1;
+        }
+        .underlay-photo {
+            background: url('https://31.media.tumblr.com/41c01e3f366d61793e5a3df70e46b462/tumblr_n4vc8sDHsd1st5lhmo1_1280.jpg');
+            background-size: cover;
+            filter: grayscale(30%);
+            animation: hue-rotate 6s infinite linear;
+        }
+        .underlay-black {
+            background: rgba(0, 0, 0, 0.7);
+        }
+
+        @keyframes hue-rotate {
+            from {
+                filter: grayscale(30%) hue-rotate(0deg);
+            }
+            to {
+                filter: grayscale(30%) hue-rotate(360deg);
+            }
+        }
+    </style>
+</head>
+<body>
+
+<form class="login-form" th:action="@{/login}" method="post">
+    <p class="login-text">
+        <span class="fa-stack fa-lg">
+            <i class="fa fa-circle fa-stack-2x"></i>
+            <i class="fa fa-lock fa-stack-1x"></i>
+        </span>
+    </p>
+
+    <input type="text" class="login-username" name="username" placeholder="Usuario" required />
+    <input type="password" class="login-password" name="password" placeholder="Contraseña" required />
+    <input type="submit" value="Entrar" class="login-submit" />
+
+    <a href="#" class="login-forgot-pass">¿Olvidaste tu contraseña?</a>
+
+    <div th:if="${param.error}" class="error-msg">
+        Usuario o contraseña incorrectos.
+    </div>
+
+    <div th:if="${param.logout}" class="logout-msg">
+        Has cerrado sesión correctamente.
+    </div>
+</form>
+
+<div class="underlay-photo"></div>
+<div class="underlay-black"></div>
+
+</body>
+</html>
