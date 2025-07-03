@@ -23,7 +23,7 @@ public class CustomSuccessHandler implements AuthenticationSuccessHandler {
         if (isAdmin) {
             response.sendRedirect("/admin/admi-home");
         } else {
-            response.sendRedirect("/almacen/inicio"); 
+            response.sendRedirect("/almacen/inicio");
         }
     }
 }

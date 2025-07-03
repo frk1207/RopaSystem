@@ -131,7 +131,7 @@
     <input type="password" class="login-password" name="password" placeholder="Contraseña" required />
     <input type="submit" value="Entrar" class="login-submit" />
 
-    <a href="#" class="login-forgot-pass">¿Olvidaste tu contraseña?</a>
+    <a th:href="@{/forgot-password}" class="login-forgot-pass">¿Olvidaste tu contraseña?</a>
 
     <div th:if="${param.error}" class="error-msg">
         Usuario o contraseña incorrectos.

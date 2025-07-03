@@ -14,6 +14,8 @@ public class Usuario {
 
     private String password;
 
+    private String email;
+
     private String rol;
 
     // Getters y Setters
