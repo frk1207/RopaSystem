@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org"
+      xmlns:sec="http://www.thymeleaf.org/extras/spring-security"
+      lang="es">
+<head>
+    <meta charset="UTF-8">
+    <title>Reportes</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+</head>
+<body style="background-color: #f8f9fa;">
+
+<nav class="navbar navbar-expand-lg navbar-dark bg-primary">
+    <div class="container-fluid">
+        <span class="navbar-brand mb-0 h1">Sistema Inventario - Reportes</span>
+        <div class="d-flex">
+            <a class="btn btn-outline-light" th:href="@{/admin/admi-home}" sec:authorize="hasRole('ADMIN')">Volver al Admin</a>
+            <a class="btn btn-outline-light" th:href="@{/almacen/inicio}" sec:authorize="hasRole('ALMACEN')">Volver al Almacén</a>
+        </div>
+    </div>
+</nav>
+
+<div class="container mt-5">
+    <div class="d-flex justify-content-between align-items-center mb-3">
+        <h2>Historial de Reportes</h2>
+
+        <!-- Solo visible si es ADMIN -->
+        <div sec:authorize="hasRole('ADMIN')">
+            <a href="/reporte/productos/pdf" class="btn btn-danger">Generar Nuevo Reporte</a>
+        </div>
+    </div>
+
+    <table class="table table-hover">
+        <thead class="table-primary">
+            <tr>
+                <th>#</th>
+                <th>Nombre</th>
+                <th>Fecha</th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr th:each="reporte, iter : ${reportes}">
+                <td th:text="${iter.count}">1</td>
+                <td th:text="${reporte.nombre}">Nombre del reporte</td>
+                <td th:text="${#temporals.format(reporte.fecha, 'dd/MM/yyyy HH:mm')}">Fecha</td>
+            </tr>
+            <tr th:if="${#lists.isEmpty(reportes)}">
+                <td colspan="3" class="text-center text-muted">No hay reportes disponibles.</td>
+            </tr>
+        </tbody>
+    </table>
+</div>
+
+<footer class="text-center mt-5 mb-3 text-muted">
+    &copy; 2025 Sistema de Inventario - Reportes
+</footer>
+
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+</body>
+</html>
