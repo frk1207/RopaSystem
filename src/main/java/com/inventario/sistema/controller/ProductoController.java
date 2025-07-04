@@ -35,7 +35,7 @@ public class ProductoController {
         List<Categoria> categorias = categoriaService.listarCategorias();
         model.addAttribute("producto", producto);
         model.addAttribute("categorias", categorias);
-        return "productos/form";
+        return "almacen/productos/form";
     }
 
     @PostMapping("/guardar")

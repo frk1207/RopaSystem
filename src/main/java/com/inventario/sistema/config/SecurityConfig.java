@@ -41,7 +41,7 @@ public class SecurityConfig {
             .authorizeHttpRequests(authz -> authz
                 .requestMatchers("/login", "/css/**", "/js/**", "/images/**", "/forgot-password", "/reset-password").permitAll()
                 .requestMatchers("/admin/**").hasRole("ADMIN")
-                .requestMatchers("/almacen/**").hasRole("ALMACEN")
+                .requestMatchers("/almacen/**").hasAnyRole("ALMACEN", "ADMIN") // Aquí está el cambio
                 .anyRequest().authenticated()
             )
             .formLogin(form -> form
