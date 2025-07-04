@@ -1,28 +1,125 @@
 <!DOCTYPE html>
-<html xmlns:th="http://www.thymeleaf.org">
+<html lang="es">
 <head>
-    <meta charset="UTF-8">
-    <title>Registrar Usuario</title>
-    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css">
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Administrador - Nuevo Usuario</title>
+  <script src="https://cdn.tailwindcss.com"></script>
 </head>
-<body class="container mt-5">
-    <h2>Registrar nuevo almacenero</h2>
-    <form th:action="@{/admin/usuarios/guardar}" th:object="${usuario}" method="post">
-        <div class="mb-3">
-            <label>Username:</label>
-            <input type="text" th:field="*{username}" class="form-control" required />
+<body class="bg-gray-200 min-h-screen flex">
+
+  <!-- Sidebar -->
+  <aside class="bg-white w-64 flex flex-col items-center py-8 space-y-6 shadow-md">
+    <div class="flex flex-col items-center space-y-2">
+      <img src="https://placehold.co/100x100?text=Profile+Photo&font=roboto" 
+           alt="Retrato de mujer sonriente con cabello castaño, fondo claro, apariencia profesional y amigable" 
+           class="rounded-full border-2 border-gray-300 w-24 h-24 object-cover" 
+           onerror="this.style.display='none'" />
+      <p class="text-sm font-semibold text-gray-700">Administrador</p>
+      <p class="text-xs text-gray-400">DATA CONSULTING</p>
+    </div>
+
+    <div class="bg-gray-100 w-full p-3 rounded-lg space-y-4">
+      <button aria-label="OF.TACNA" class="flex items-center space-x-2 text-gray-600 px-3 py-2 rounded hover:bg-gray-200 w-full text-xs font-semibold" disabled>
+        <svg xmlns="http://www.w3.org/2000/svg" class="h-4 w-4" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="4" width="18" height="18" rx="2" ry="2"></rect><line x1="16" y1="2" x2="16" y2="6"></line><line x1="8" y1="2" x2="8" y2="6"></line><line x1="3" y1="10" x2="21" y2="10"></line></svg>
+        <span>OF. TACNA</span>
+      </button>
+    </div>
+
+    <nav class="bg-gray-100 w-full rounded-lg p-4 space-y-6">
+      <button class="flex items-center space-x-3 text-gray-700 hover:text-gray-900 hover:bg-gray-200 rounded px-3 py-2 w-full text-sm font-medium">
+        <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"></circle><line x1="12" y1="16" x2="12" y2="12"></line><line x1="12" y1="8" x2="12" y2="8"></line></svg>
+        <span>Ver Detalle</span>
+      </button>
+
+      <button class="flex items-center space-x-3 text-gray-700 hover:text-gray-900 hover:bg-gray-200 rounded px-3 py-2 w-full text-sm font-medium">
+        <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24" stroke-linecap="round" stroke-linejoin="round"><path d="M12 20h9"></path><path d="M16.5 3.5a2.121 2.121 0 113 3L7 19l-4 1 1-4 12.5-12.5z"></path></svg>
+        <span>Modificar</span>
+      </button>
+
+      <button class="flex items-center space-x-3 text-gray-700 hover:text-gray-900 hover:bg-gray-200 rounded px-3 py-2 w-full text-sm font-medium">
+        <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" fill="none" stroke="currentColor" stroke-width="3" viewBox="0 0 24 24" stroke-linecap="round" stroke-linejoin="round"><path d="M5 13l4 4L19 7"></path></svg>
+        <span>Aprobar</span>
+      </button>
+
+      <button class="flex items-center space-x-3 text-gray-700 hover:text-gray-900 hover:bg-gray-200 rounded px-3 py-2 w-full text-sm font-medium">
+        <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24" stroke-linecap="round" stroke-linejoin="round"><line x1="18" y1="6" x2="6" y2="18"></line><line x1="6" y1="6" x2="18" y2="18"></line></svg>
+        <span>Anular</span>
+      </button>
+
+      <button class="flex items-center space-x-3 text-gray-700 hover:text-gray-900 hover:bg-gray-200 rounded px-3 py-2 w-full text-sm font-medium">
+        <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24" stroke-linecap="round" stroke-linejoin="round"><path d="M12 9v3m0 0v3m0-3h3m-3 0H9"></path></svg>
+        <span>Agregar usuario</span>
+      </button>
+
+      <button class="flex items-center space-x-3 text-gray-700 hover:text-gray-900 hover:bg-gray-200 rounded px-3 py-2 w-full text-sm font-medium">
+        <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="11" width="18" height="10" rx="2" ry="2"></rect><line x1="7" y1="11" x2="7" y2="7"></line><line x1="17" y1="11" x2="17" y2="7"></line><line x1="10" y1="16" x2="14" y2="16"></line></svg>
+        <span>Cerrar sesión</span>
+      </button>
+    </nav>
+  </aside>
+
+  <!-- Content Area -->
+  <main class="flex-grow flex justify-center items-start py-20 px-10 bg-gray-300 min-h-screen">
+    <section class="bg-gray-100 rounded-lg p-10 w-full max-w-md shadow-lg">
+
+      <div class="flex flex-col items-center mb-8">
+        <div class="bg-gray-200 rounded-full p-5">
+          <svg xmlns="http://www.w3.org/2000/svg" fill="black" viewBox="0 0 24 24" stroke-width="0" class="w-12 h-12">
+            <path d="M12 12c2.485 0 4.5-2.015 4.5-4.5S14.485 3 12 3 7.5 5.015 7.5 7.5 9.515 12 12 12zM4.5 19.5v-1.5c0-3 6-3 6-3s6 0 6 3v1.5" />
+          </svg>
         </div>
-        <div class="mb-3">
-            <label>Password:</label>
-            <input type="password" th:field="*{password}" class="form-control" required />
+        <h1 class="mt-3 font-medium text-lg text-gray-800">Registrar nuevo usuario</h1>
+      </div>
+
+      <form th:action="@{/admin/usuarios/guardar}" th:object="${usuario}" method="post">
+        <input 
+          type="text" 
+          id="username" 
+          th:field="*{username}" 
+          placeholder="Nombre de usuario" 
+          class="w-full bg-gray-200 placeholder-gray-500 text-gray-700 rounded-md py-2 px-3 mb-4 focus:outline-none focus:ring-2 focus:ring-indigo-400" 
+          required
+        />
+
+        <input 
+          type="password" 
+          id="password" 
+          th:field="*{password}" 
+          placeholder="Contraseña" 
+          class="w-full bg-gray-200 placeholder-gray-500 text-gray-700 rounded-md py-2 px-3 mb-4 focus:outline-none focus:ring-2 focus:ring-indigo-400" 
+          required
+        />
+
+        <select 
+          id="rol" 
+          th:field="*{rol}" 
+          class="w-full bg-gray-200 placeholder-gray-500 text-gray-700 rounded-md py-2 px-3 mb-4 appearance-none focus:outline-none focus:ring-2 focus:ring-indigo-400"
+          required
+        >
+          <option value="" disabled selected>Rol</option>
+          <option value="ALMACEN">ALMACEN</option>
+          <option value="ADMIN">ADMINISTRADOR</option>
+          <option value="USER">USUARIO</option>
+        </select>
+
+        <div class="flex justify-center space-x-6">
+          <button 
+            type="submit" 
+            class="bg-indigo-100 hover:bg-indigo-200 text-gray-700 font-semibold py-2 px-5 rounded-md transition-all"
+          >
+            Guardar
+          </button>
+          <button 
+            type="reset" 
+            class="bg-indigo-100 hover:bg-indigo-200 text-gray-700 font-semibold py-2 px-5 rounded-md transition-all"
+          >
+            Cancelar
+          </button>
         </div>
-        <div class="mb-3">
-            <label>Rol:</label>
-            <select th:field="*{rol}" class="form-select">
-                <option value="ALMACEN">ALMACEN</option>
-            </select>
-        </div>
-        <button type="submit" class="btn btn-primary">Guardar</button>
-    </form>
+      </form>
+    </section>
+  </main>
+
 </body>
 </html>
