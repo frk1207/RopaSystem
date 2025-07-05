@@ -14,7 +14,9 @@
                 <th>#</th>
                 <th>Usuario</th>
                 <th>Rol</th>
+                <th>Email</th>
                 <th>Acciones</th>
+                
             </tr>
         </thead>
         <tbody>
@@ -22,6 +24,7 @@
                 <td th:text="${stat.index + 1}"></td>
                 <td th:text="${usuario.username}"></td>
                 <td th:text="${usuario.rol}"></td>
+                <td th:text="${usuario.email}"></td>
                 <td>
                     <a th:href="@{'/admin/usuarios/eliminar/' + ${usuario.id}}" 
                        class="btn btn-danger btn-sm"

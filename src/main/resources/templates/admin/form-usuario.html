@@ -103,6 +103,15 @@
           <option value="USER">USUARIO</option>
         </select>
 
+        <input 
+          type="email" 
+          id="email" 
+          th:field="*{email}" 
+          placeholder="Correo electrónico" 
+          class="w-full bg-gray-200 placeholder-gray-500 text-gray-700 rounded-md py-2 px-3 mb-4 focus:outline-none focus:ring-2 focus:ring-indigo-400" 
+          required
+        />
+        
         <div class="flex justify-center space-x-6">
           <button 
             type="submit" 
