@@ -192,6 +192,7 @@
                             <th>#</th>
                             <th>Usuario</th>
                             <th>Rol</th>
+                            <th>Email</th>
                             <th class="text-center">Acciones</th>
                         </tr>
                     </thead>
@@ -199,7 +200,8 @@
                         <tr th:each="usuario, stat : ${usuarios}">
                             <td th:text="${stat.index + 1}">1</td>
                             <td th:text="${usuario.username}">nombre</td>
-                            <td th:text="${usuario.rol}">ROL</td>
+                            <td th:text="${usuario.rol}">ROL</td>   
+                            <td th:text="${usuario.email}"></td>
                             <td class="text-center">
                                 <a th:href="@{'/admin/usuarios/eliminar/' + ${usuario.id}}" 
                                    class="btn btn-danger btn-sm"
