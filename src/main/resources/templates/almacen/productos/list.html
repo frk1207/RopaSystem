@@ -156,8 +156,9 @@
             <nav class="sidebar-menu">
                 <ul>
                     <li><a href="/admin/admi-home"><i class="material-icons">dashboard</i>&nbsp;Panel</a></li>
-                    <li class="active"><a href="/almacen/inventario"><i class="material-icons">inventory_2</i>&nbsp;Productos</a></li>
+                    <li class="active"><a href="/productos"><i class="material-icons">store</i>&nbsp;Productos</a></li>
                     <li><a href="/admin/categorias"><i class="material-icons">category</i>&nbsp;Categorías</a></li>
+                    <li><a href="/almacen/inventario/list"><i class="material-icons">inventory_2</i>&nbsp;Inventario</a></li>
                     <li><a href="/admin/usuarios"><i class="material-icons">group</i>&nbsp;Almaceneros</a></li>
                     <li><a href="/admin/reportes"><i class="material-icons">bar_chart</i>&nbsp;Reportes</a></li>
                 </ul>
@@ -205,10 +206,10 @@
                                 <span class="badge bg-secondary" th:text="${producto.categoria != null ? producto.categoria.nombre : 'Sin categoría'}"></span>
                             </td>
                             <td style="text-align: center;">
-                                <a th:href="@{/almacen/inventario/editar/{id}(id=${producto.id})}" class="btn btn-warning btn-sm me-1">
+                                <a th:href="@{/productos/editar/{id}(id=${producto.id})}" class="btn btn-warning btn-sm me-1">
                                     <i class="material-icons" style="font-size: 16px;">edit</i>
                                 </a>
-                                <a th:href="@{/almacen/inventario/eliminar/{id}(id=${producto.id})}"
+                                <a th:href="@{/productos/eliminar/{id}(id=${producto.id})}"
                                    onclick="return confirm('¿Está seguro de eliminar este producto?')"
                                    class="btn btn-danger btn-sm">
                                     <i class="material-icons" style="font-size: 16px;">delete</i>

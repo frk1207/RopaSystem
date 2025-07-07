@@ -50,7 +50,7 @@ public class ProductoController {
         List<Categoria> categorias = categoriaService.listarCategorias();
         model.addAttribute("producto", producto.orElse(null));
         model.addAttribute("categorias", categorias);
-        return "productos/form";
+        return "almacen/productos/form";
     }
 
     @GetMapping("/eliminar/{id}")
