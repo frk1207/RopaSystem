@@ -25,7 +25,39 @@
 
         <!-- Solo visible si es ADMIN -->
         <div sec:authorize="hasRole('ADMIN')">
-            <a href="/reporte/productos/pdf" class="btn btn-danger">Generar Nuevo Reporte</a>
+            <a class="btn btn-danger" data-bs-toggle="modal" data-bs-target="#modalReporte">Generar Nuevo Reporte</a>
+        </div>
+    </div>
+
+    <div class="modal fade" id="modalReporte" tabindex="-1" aria-labelledby="modalReporteLabel" aria-hidden="true">
+        <div class="modal-dialog">
+            <div class="modal-content">
+            <form th:action="@{/reporte/descargar}" method="get" target="_blank">
+                <div class="modal-header">
+                <h5 class="modal-title" id="modalReporteLabel">Seleccionar tipo de reporte</h5>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Cerrar"></button>
+                </div>
+
+                <div class="modal-body">
+                <div class="mb-3">
+                    <label for="tipoReporte" class="form-label">Tipo de reporte:</label>
+                    <select class="form-select" id="tipoReporte" name="tipoReporte" required>
+                    <option value="stock">📦 Stock actual</option>
+                    <option value="categoria">🧥 Por categoría</option>
+                    <option value="fecha">📅 Por fecha</option>
+                    <option value="bajo-stock">🔻 Bajo stock</option>
+                    <option value="producto">👕 Por producto</option>
+                    <option value="general">📋 General</option>
+                    </select>
+                </div>
+                </div>
+
+                <div class="modal-footer">
+                <button type="submit" class="btn btn-success">Descargar PDF</button>
+                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancelar</button>
+                </div>
+            </form>
+            </div>
         </div>
     </div>
 
@@ -49,6 +81,9 @@
         </tbody>
     </table>
 </div>
+
+<div th:if="${mensaje}" class="alert alert-success" th:text="${mensaje}"></div>
+<div th:if="${error}" class="alert alert-danger" th:text="${error}"></div>
 
 <footer class="text-center mt-5 mb-3 text-muted">
     &copy; 2025 Sistema de Inventario - Reportes

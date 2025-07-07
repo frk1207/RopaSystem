@@ -4,18 +4,27 @@ import com.inventario.sistema.model.Producto;
 import com.inventario.sistema.model.Reporte;
 import com.inventario.sistema.service.ProductoService;
 import com.inventario.sistema.service.ReporteService;
+
+import org.springframework.core.io.InputStreamResource;
+import org.springframework.core.io.Resource;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model; // <-- Asegúrate de tener esto
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import com.itextpdf.text.Document;
 import com.itextpdf.text.Paragraph;
 import com.itextpdf.text.pdf.PdfWriter;
 
 import java.io.ByteArrayOutputStream;
+import java.io.File;
+import java.io.FileInputStream;
+import java.io.IOException;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 import java.util.List;
@@ -78,5 +87,39 @@ public class ReporteController {
         List<Reporte> reportes = reporteService.listarTodos();
         model.addAttribute("reportes", reportes);
         return "almacen/reportes/list";
+    }
+
+    @PostMapping("/reporte/generar")
+    public String generarReporteDesdeFormulario(@RequestParam("tipoReporte") String tipoReporte,
+                                                RedirectAttributes redirectAttributes) {
+        try {
+            reporteService.generarReporte(tipoReporte);
+            redirectAttributes.addFlashAttribute("mensaje", "✅ Reporte generado: " + tipoReporte + ".pdf");
+        } catch (Exception e) {
+            redirectAttributes.addFlashAttribute("error", "Error: " + e.getMessage());
+        }
+        return "redirect:/admin/reportes"; 
+    }
+
+    @GetMapping("/reporte/descargar")
+    public ResponseEntity<Resource> descargarReporte(@RequestParam String tipoReporte) throws IOException {
+        reporteService.generarReporte(tipoReporte); // genera el PDF
+
+        String nombreArchivo = "reporte_" + tipoReporte + ".pdf";
+        File archivo = new File(nombreArchivo);
+
+        if (!archivo.exists()) {
+            return ResponseEntity.notFound().build();
+        }
+
+        InputStreamResource resource = new InputStreamResource(new FileInputStream(archivo));
+
+        reporteService.guardar(nombreArchivo); // guarda el reporte en la base de datos
+
+        return ResponseEntity.ok()
+                .header(HttpHeaders.CONTENT_DISPOSITION, "attachment; filename=" + archivo.getName())
+                .contentLength(archivo.length())
+                .contentType(MediaType.APPLICATION_PDF)
+                .body(resource);
     }
 }
